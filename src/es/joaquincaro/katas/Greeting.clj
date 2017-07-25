@@ -4,7 +4,10 @@
 
 (defmulti greet (fn [name] [(nil? name) (upper-case? name)]) )
 
-(defmethod greet [true *] [_] "Hello, my friend.")
-(defmethod greet [false false] [name] ( str "Hello, " name "."))
+(defn anonymous-greeting [] "Hello, my friend.")
+(defmethod greet [true *] [_] (anonymous-greeting))
 
-(defmethod greet [false true] [name] ( str "HELLO, "(clojure.string/upper-case name)  "."))
+(defn personalized-greeting [name] (str "Hello, " name "."))
+(defmethod greet [false false] [name] (personalized-greeting name))
+
+(defmethod greet [false true] [name] ( (comp clojure.string/upper-case personalized-greeting) name))
