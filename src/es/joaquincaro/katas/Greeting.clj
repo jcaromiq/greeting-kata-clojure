@@ -4,8 +4,9 @@
 
 (defmulti greet (fn [name] [(nil? name) (upper-case? name)]) )
 
-(defn anonymous-greeting [] "Hello, my friend.")
-(defmethod greet [true *] [_] (anonymous-greeting))
+(defn anonymous-greeting [] (personalized-greeting "my friend"))
+
+(defmethod greet [true false] [_] (anonymous-greeting))
 
 (defn personalized-greeting [name] (str "Hello, " name "."))
 (defmethod greet [false false] [name] (personalized-greeting name))
