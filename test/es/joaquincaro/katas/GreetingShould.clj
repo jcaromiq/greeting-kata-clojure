@@ -15,6 +15,11 @@
   (fact "Greet with upper if name is in upper"
         (greet "PEPE") => "HELLO, PEPE.")
 
+  (fact "Greet two names"
+        (greet ["Jill", "Jane"]) => "Hello, Jill and Jane.")
 
-)
+
+
+
+  )
 
