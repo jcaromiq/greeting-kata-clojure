@@ -10,27 +10,23 @@
       ((comp clojure.string/upper-case personalized-greeting) name))
 
 (defmulti greet-one (fn [name] (nil? name)) )
-
 (defmethod greet-one true [_] (anonymous-greeting))
-
 (defmethod greet-one false
   [name]
   (if (upper-case? name)
     (greet-shouting name)
     (personalized-greeting name)))
 
-(defmulti greet (fn [name] (coll? name)) )
 
+(defmulti greet (fn [name] (coll? name)) )
 (defmethod greet true
   [names]
-  (str "Hello, "
-       (clojure.string/join " and " [(clojure.string/join ", " (butlast names)) (last names)])
-       "."))
+  (if (= (count names) 2)
+    (str "Hello, " (clojure.string/join " and " names) ".")
 
-
+    (str "Hello, "
+       (clojure.string/join ", and " [(clojure.string/join ", " (butlast names)) (last names)])
+       ".")))
 (defmethod greet false
   [name]
   (greet-one name))
-
-
-
