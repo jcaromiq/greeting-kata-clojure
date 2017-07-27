@@ -13,10 +13,13 @@
         (greet nil) => "Hello, my friend.")
 
   (fact "Greet with upper if name is in upper"
-        (greet "PEPE") => "HELLO, PEPE.")
+        (greet "JERRY") => "HELLO, JERRY.")
 
   (fact "Greet two names"
         (greet ["Jill", "Jane"]) => "Hello, Jill and Jane.")
+
+  (fact "Greet three names"
+        (greet ["Amy", "Brian", "Charlotte"]) => "Hello, Amy, Brian, and Charlotte.")
 
 
 
