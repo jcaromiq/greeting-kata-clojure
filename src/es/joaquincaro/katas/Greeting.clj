@@ -6,8 +6,21 @@
 
 (defn anonymous-greeting [] (personalized-greeting "my friend"))
 
+(defn more-of-two?
+  [names]
+  (if (> (count names) 2) true false))
+
 (defn greet-shouting [name]
       ((comp clojure.string/upper-case personalized-greeting) name))
+
+(defn multi-greet
+  [names]
+  (str "Hello, "
+       (clojure.string/join ", and " [(clojure.string/join ", " (butlast names)) (last names)])
+       "."))
+(defn greet-two
+  [names]
+  (str "Hello, " (clojure.string/join " and " names) "."))
 
 (defmulti greet-one (fn [name] (nil? name)) )
 (defmethod greet-one true [_] (anonymous-greeting))
@@ -21,12 +34,10 @@
 (defmulti greet (fn [name] (coll? name)) )
 (defmethod greet true
   [names]
-  (if (= (count names) 2)
-    (str "Hello, " (clojure.string/join " and " names) ".")
+  (if (more-of-two? names)
+    (multi-greet names)
+    (greet-two names)))
 
-    (str "Hello, "
-       (clojure.string/join ", and " [(clojure.string/join ", " (butlast names)) (last names)])
-       ".")))
 (defmethod greet false
   [name]
   (greet-one name))
