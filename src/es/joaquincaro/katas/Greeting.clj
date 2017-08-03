@@ -1,6 +1,8 @@
 (ns es.joaquincaro.katas.Greeting)
 
-(defn upper-case? [name] (and (> (count name) 0) (every? #(Character/isUpperCase %) name)))
+(defn upper-case?
+  [name]
+  (and (> (count name) 0) (every? #(Character/isUpperCase %) name)))
 
 (defn personalized-greeting
   [name]
@@ -13,7 +15,7 @@
   (if (> (count names) 2) true false))
 
 (defn greet-shouting [name]
-      ((comp clojure.string/upper-case personalized-greeting) name))
+  ((comp clojure.string/upper-case personalized-greeting) name))
 
 (defn
   multi-greet
@@ -33,12 +35,18 @@
     (personalized-greeting name)))
 
 
-(defmulti greet (fn [name] (coll? name)) )
+(defmulti greet (fn [name] (coll? name)))
 (defmethod greet true
   [names]
-  (if (more-of-two? names)
-    (multi-greet names)
-    (greet-two names)))
+  (let [names-lowers (filter (comp not upper-case?) names)
+        names-uppers (filter upper-case? names)]
+    (str (if (more-of-two? names-lowers)
+      (multi-greet names-lowers)
+      (greet-two names-lowers))
+    (if (> (count names-uppers) 0)
+      (str " AND HELLO ", (first names-uppers), "!")))
+    ))
+
 
 (defmethod greet false
   [name]

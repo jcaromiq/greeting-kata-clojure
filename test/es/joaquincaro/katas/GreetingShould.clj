@@ -21,9 +21,8 @@
   (fact "Greet three names"
         (greet ["Amy", "Brian", "Charlotte"]) => "Hello, Amy, Brian, and Charlotte.")
 
-  ;(fact "Allow mixing of normal and shouted names by separating the response into two greetings"
-  ;      (greet ["Amy", "BRIAN", "Charlotte"]) => "Hello, Amy and Charlotte. AND HELLO BRIAN!")
-
+  (fact "Allow mixing of normal and shouted names by separating the response into two greetings"
+        (greet ["Amy", "BRIAN", "Charlotte"]) => "Hello, Amy and Charlotte. AND HELLO BRIAN!")
 
 
   )
