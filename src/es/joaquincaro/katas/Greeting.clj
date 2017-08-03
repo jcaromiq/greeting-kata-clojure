@@ -38,6 +38,7 @@
 (defmulti greet (fn [name] (coll? name)))
 (defmethod greet true
   [names]
+  ;; See https://gist.github.com/alvarogarcia7/d08d244e85e645b95cb4a6e58f8769a8
   (let [{names-lowers false names-uppers true} (group-by upper-case? names)]
     (str
       (cond
