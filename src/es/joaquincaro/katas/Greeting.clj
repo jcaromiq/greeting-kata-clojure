@@ -38,8 +38,9 @@
 (defmulti greet (fn [name] (coll? name)))
 (defmethod greet true
   [names]
-  (let [names-lowers (filter (comp not upper-case?) names)
-        names-uppers (filter upper-case? names)]
+  (let [grouped-names (group-by upper-case? names)
+        names-lowers (get grouped-names false)
+        names-uppers (get grouped-names true)]
     (str
       (cond
         (more-of-two? names-lowers) (multi-greet names-lowers)
