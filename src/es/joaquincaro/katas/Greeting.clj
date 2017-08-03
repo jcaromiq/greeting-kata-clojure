@@ -38,15 +38,13 @@
 (defmulti greet (fn [name] (coll? name)))
 (defmethod greet true
   [names]
-  (let [grouped-names (group-by upper-case? names)
-        names-lowers (get grouped-names false)
-        names-uppers (get grouped-names true)]
+  (let [{names-lowers false names-uppers true} (group-by upper-case? names)]
     (str
       (cond
         (more-of-two? names-lowers) (multi-greet names-lowers)
         :else (greet-two names-lowers))
       (if (> (count names-uppers) 0)
-        (str " AND HELLO ", (clojure.string/join " AND " names-uppers) "!")))
+        (str " AND HELLO " (clojure.string/join " AND " names-uppers) "!")))
     ))
 
 
