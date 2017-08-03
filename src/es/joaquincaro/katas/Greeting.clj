@@ -40,11 +40,12 @@
   [names]
   (let [names-lowers (filter (comp not upper-case?) names)
         names-uppers (filter upper-case? names)]
-    (str (if (more-of-two? names-lowers)
-      (multi-greet names-lowers)
-      (greet-two names-lowers))
-    (if (> (count names-uppers) 0)
-      (str " AND HELLO ", (clojure.string/join " AND " names-uppers) "!")))
+    (str
+      (cond
+        (more-of-two? names-lowers) (multi-greet names-lowers)
+        :else (greet-two names-lowers))
+      (if (> (count names-uppers) 0)
+        (str " AND HELLO ", (clojure.string/join " AND " names-uppers) "!")))
     ))
 
 
