@@ -24,6 +24,7 @@
   (fact "Allow mixing of normal and shouted names by separating the response into two greetings"
         (greet ["Amy", "BRIAN", "Charlotte"]) => "Hello, Amy and Charlotte. AND HELLO BRIAN!")
 
-
+  (fact "Allow mixing of normal and shouted names by separating the response into two greetings, several upper case ones"
+        (greet ["Amy", "BRIAN", "JAMES" "Charlotte"]) => "Hello, Amy and Charlotte. AND HELLO BRIAN AND JAMES!")
   )
 

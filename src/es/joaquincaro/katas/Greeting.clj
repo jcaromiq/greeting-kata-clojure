@@ -44,7 +44,7 @@
       (multi-greet names-lowers)
       (greet-two names-lowers))
     (if (> (count names-uppers) 0)
-      (str " AND HELLO ", (first names-uppers), "!")))
+      (str " AND HELLO ", (clojure.string/join " AND " names-uppers) "!")))
     ))
 
 
