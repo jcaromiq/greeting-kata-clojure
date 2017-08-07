@@ -28,6 +28,11 @@
   [names]
   (str "Hello, " (clojure.string/join " and " names) "."))
 
+(defn normalize-names
+  [names]
+  (let [names (map #(clojure.string/replace % #" """) names)]
+     (flatten (map #(clojure.string/split % #",") names))))
+
 (defn greet-one
   [name]
   (if (upper-case? name)
@@ -39,7 +44,8 @@
 (defmethod greet true
   [names]
   ;; See https://gist.github.com/alvarogarcia7/d08d244e85e645b95cb4a6e58f8769a8
-  (let [{names-lowers false names-uppers true} (group-by upper-case? names)]
+  (let [names (normalize-names names)
+    {names-lowers false names-uppers true} (group-by upper-case? names)]
     (str
       (cond
         (more-of-two? names-lowers) (multi-greet names-lowers)

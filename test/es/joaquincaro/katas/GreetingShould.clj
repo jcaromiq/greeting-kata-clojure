@@ -26,5 +26,8 @@
 
   (fact "Allow mixing of normal and shouted names by separating the response into two greetings, several upper case ones"
         (greet ["Amy", "BRIAN", "JAMES" "Charlotte"]) => "Hello, Amy and Charlotte. AND HELLO BRIAN AND JAMES!")
+
+  (fact "Allow split any entries in name if a string containing a comma, split it as its own input"
+        (greet ["Bob", "Charlie, Dianne"]) => "Hello, Bob, Charlie, and Dianne.")
   )
 
